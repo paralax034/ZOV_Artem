@@ -1,5 +1,6 @@
 # ================================================
 # ЗОНА A1 (27 68 -409 -> 48 76 -404)
+# Время захвата: 40 сек = 200 прогресса (+1 каждые 4 тика)
 # tag=!fl_waiting — мёртвые НЕ считаются в зоне
 # ================================================
 
@@ -14,6 +15,6 @@ execute if score #zone_state fl_math matches 1 run scoreboard players add #globa
 execute if score #zone_state fl_math matches 0 if score #global fl_progress matches 1.. run scoreboard players remove #global fl_progress 1
 execute if score #global fl_progress matches ..0 run scoreboard players set #global fl_progress 0
 
-function zov:zone/effects
+function zov:zone/effects_1
 
-execute if score #global fl_progress matches 300.. run function zov:zone/capture
+execute if score #global fl_progress matches 200.. run function zov:zone/capture

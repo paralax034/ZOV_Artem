@@ -43,6 +43,9 @@ scoreboard players set #hud_timer fl_math 0
 scoreboard players set #1200 fl_math 1200
 scoreboard players set #4 fl_math 4
 scoreboard players set #20 fl_math 20
+# Настройки: 1=включено, 0=выключено
+# Менять через /function zov:settings/goggles_on (off)
+scoreboard players set #goggles_enabled fl_math 1
 
 bossbar remove zov:progress
 bossbar add zov:progress "ZOV"
@@ -54,3 +57,4 @@ bossbar set zov:progress visible false
 bossbar set zov:progress players @a
 
 tellraw @a [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Датапак загружен. Введите ","color":"gray"},{"text":"/function zov:start","color":"yellow"},{"text":" для начала.","color":"gray"}]
+tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"Тепловизоры: ","color":"gray"},{"text":"ВКЛЮЧЕНЫ","color":"green"},{"text":" | /function zov:settings/goggles_off для отключения","color":"dark_gray"}]

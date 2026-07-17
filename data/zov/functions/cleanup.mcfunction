@@ -1,5 +1,7 @@
 # ================================================
 # ZOV — ОЧИСТКА КАРТЫ
+# curios reset @a — сбрасывает слоты + очищает все curios предметы
+# superbwarfare ammo set — обнуляет данные патронов (хранятся на игроке)
 # ================================================
 
 kill @e[type=superbwarfare:bmp_2]
@@ -13,8 +15,18 @@ kill @e[type=superbwarfare:blu_43]
 kill @e[type=item]
 kill @e[type=corpse:corpse]
 
-# Полная очистка инвентаря + патроны (rifle_ammo накапливается из коробок)
+# Очистка обычного инвентаря
 clear @a
+# Очистка раскрытых патронов-предметов
 clear @a superbwarfare:rifle_ammo
+clear @a superbwarfare:rifle_ammo_box
+# Curios: RESET (не clear!) — официальный API
+execute as @a run curios reset @s
+# Патроны мода — данные на игроке, не предметы
+execute as @a run superbwarfare ammo set @s rifle 0
+execute as @a run superbwarfare ammo set @s handgun 0
+execute as @a run superbwarfare ammo set @s sniper 0
+execute as @a run superbwarfare ammo set @s shotgun 0
+execute as @a run superbwarfare ammo set @s heavy 0
 
 tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"Карта очищена от техники и предметов.","color":"gray"}]

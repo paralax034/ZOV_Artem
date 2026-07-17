@@ -68,15 +68,18 @@ give @a[team=blue] superbwarfare:us_chest_iotv{Unbreakable:1b} 1
 give @a[team=red] superbwarfare:ak_12 1
 give @a[team=blue] superbwarfare:m_4 1
 
-give @a superbwarfare:rifle_ammo_box 7
+# x2 патронов коробок
+give @a superbwarfare:rifle_ammo_box 14
 give @a superbwarfare:armor_plate 4
-give @a superbwarfare:thermal_imaging_goggles 1
 give @a superbwarfare:medical_kit 3
 give @a superbwarfare:rpg 1
 give @a superbwarfare:rpg_rocket_tbg 2
 give @a superbwarfare:hand_grenade 2
 give @a superbwarfare:knife 1
 give @a minecraft:bread 12
+
+# Тепловизоры/ПНВ — только если включены в настройках
+execute if score #goggles_enabled fl_math matches 1 run give @a superbwarfare:thermal_imaging_goggles 1
 
 give @a[team=red] superbwarfare:m18_smoke_grenade 2
 give @a[team=blue] superbwarfare:m18_smoke_grenade 2
@@ -93,12 +96,8 @@ give @a[tag=fl_tow_operator] superbwarfare:tow_deployer 1
 give @a[tag=fl_tow_operator] superbwarfare:medium_anti_ground_missile 1
 tag @a remove fl_tow_operator
 
-# Назначаем навигатора красных (тег на весь раунд)
+# Компасы: навигатор красных + все синие (через nav/update)
 tag @a[team=red,limit=1,sort=random] add fl_navigator
-
-# ================================================
-# КОМПАСЫ (nav/update выдаёт обоим сразу)
-# ================================================
 function zov:nav/update
 
 summon superbwarfare:bmp_2 24 64 -819 {WeaponState:{Missile:{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}},Cannon:{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}},MG1:{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}},MG3:{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}},MG2:{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}},MainMachineGun:{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}},"@MG":{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}},MG5:{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}},MG4:{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}},MG6:{Count:1b,tag:{Perks:{},GunData:{},Attachments:{}}}},PropellerRot:0.0f,LeftWheelHealth:50.0f,ChargeProgress:0.0f,Invulnerable:0b,MainEngineHealth:50.0f,IsWreck:0b,PortalCooldown:0,TurretHealth:50.0f,RightWheelDamaged:0b,GearUp:0b,SelectedWeapon:[I;0,0,0,0,0,0,0],FallDistance:0.0f,MainEngineDamaged:0b,CanUpdate:1b,Energy:5000000,GearRot:0.0f,SubEngineHealth:50.0f,DecoyReady:1b,Health:300.0f,Air:300s,OnGround:1b,TurretBurnTimer:0,SubEngineDamaged:0b,TurretBurned:0b,SympatheticDetonated:0b,RightWheelHealth:50.0f,LeftWheelDamaged:0b,Fire:-1s,TurretDamaged:0b,Power:0.0f,Inventory:{Size:54,Items:[{Slot:0,id:"superbwarfare:small_shell_ap",Count:64b},{Slot:1,id:"superbwarfare:small_shell_gs",Count:64b},{Slot:2,id:"superbwarfare:small_shell_he",Count:64b},{Slot:3,id:"superbwarfare:small_shell_he",Count:64b},{Slot:4,id:"superbwarfare:large_battery_pack",Count:1b,tag:{Energy:20000000}},{Slot:5,id:"superbwarfare:rifle_ammo",Count:64b},{Slot:6,id:"superbwarfare:rifle_ammo",Count:64b},{Slot:7,id:"superbwarfare:rifle_ammo",Count:64b},{Slot:8,id:"superbwarfare:rifle_ammo",Count:64b},{Slot:9,id:"superbwarfare:rifle_ammo",Count:64b},{Slot:10,id:"superbwarfare:rifle_ammo",Count:64b},{Slot:11,id:"superbwarfare:rifle_ammo",Count:64b},{Slot:12,id:"superbwarfare:rifle_ammo",Count:64b},{Slot:13,id:"superbwarfare:rifle_ammo",Count:64b},{Slot:14,id:"minecraft:bread",Count:1b}]}}
