@@ -1,0 +1,52 @@
+# ================================================
+# ZOV — SETUP
+# ================================================
+
+scoreboard objectives remove fl_state
+scoreboard objectives remove fl_active
+scoreboard objectives remove fl_progress
+scoreboard objectives remove fl_captured
+scoreboard objectives remove fl_round
+scoreboard objectives remove fl_timer
+scoreboard objectives remove fl_deaths
+scoreboard objectives remove fl_prev_deaths
+scoreboard objectives remove fl_dead
+scoreboard objectives remove fl_math
+scoreboard objectives remove fl_nav
+scoreboard objectives remove fl_assign
+
+scoreboard objectives add fl_assign dummy
+scoreboard objectives add fl_state dummy
+scoreboard objectives add fl_active dummy
+scoreboard objectives add fl_progress dummy
+scoreboard objectives add fl_captured dummy
+scoreboard objectives add fl_round dummy
+scoreboard objectives add fl_timer dummy
+scoreboard objectives add fl_deaths deathCount
+scoreboard objectives add fl_prev_deaths dummy
+scoreboard objectives add fl_dead dummy
+scoreboard objectives add fl_math dummy
+# Навигация: per-player Z/X позиция и таймер компаса
+scoreboard objectives add fl_nav dummy
+
+scoreboard players set #global fl_state 0
+scoreboard players set #global fl_active 1
+scoreboard players set #global fl_progress 0
+scoreboard players set #global fl_captured 0
+scoreboard players set #global fl_round 24000
+scoreboard players set #global fl_timer 0
+scoreboard players set #sound_timer fl_math 0
+scoreboard players set #zone_state fl_math 0
+scoreboard players set #compass_timer fl_math 0
+scoreboard players set #1200 fl_math 1200
+
+bossbar remove zov:progress
+bossbar add zov:progress "ZOV"
+bossbar set zov:progress color white
+bossbar set zov:progress style progress
+bossbar set zov:progress max 24000
+bossbar set zov:progress value 24000
+bossbar set zov:progress visible false
+bossbar set zov:progress players @a
+
+tellraw @a [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Датапак загружен. Введите ","color":"gray"},{"text":"/function zov:start","color":"yellow"},{"text":" для начала.","color":"gray"}]
