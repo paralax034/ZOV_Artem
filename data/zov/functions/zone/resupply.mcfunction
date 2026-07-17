@@ -1,10 +1,10 @@
 # ================================================
 # ZOV — ПОПОЛНЕНИЕ ПРИ ЗАХВАТЕ ТОЧКИ
-# Вызывается из zone/capture при каждом захвате
+# Выдаётся всем без ограничений (бонус за захват)
 # ================================================
 
-give @a superbwarfare:rifle_ammo_box 4
-give @a superbwarfare:armor_plate 4
-give @a minecraft:bread 12
+give @a superbwarfare:rifle_ammo_box 5
+give @a superbwarfare:armor_plate 5
+give @a minecraft:bread 20
 
 tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"Пополнение боеприпасов выдано всем!","color":"green"}]

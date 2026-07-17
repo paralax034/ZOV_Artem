@@ -1,5 +1,6 @@
 # ================================================
-# ZOV — ПОБЕДА СИНИХ (таймер вышел)
+# ZOV — ПОБЕДА СИНИХ
+# Звук достижения убран
 # ================================================
 
 scoreboard players set #global fl_state 2
@@ -12,7 +13,6 @@ title @a times 20 100 20
 title @a title [{"text":"ОБОРОНА!","color":"blue","bold":true}]
 title @a subtitle [{"text":"Синие удержали линию фронта.","color":"white"}]
 
-playsound minecraft:ui.toast.challenge_complete master @a ~ ~ ~ 1.5 1.2
 tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"Время вышло! Синие удержали оборону!","color":"aqua","bold":true}]
 
 schedule function zov:reset 200t

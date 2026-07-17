@@ -26,7 +26,6 @@ scoreboard objectives add fl_deaths deathCount
 scoreboard objectives add fl_prev_deaths dummy
 scoreboard objectives add fl_dead dummy
 scoreboard objectives add fl_math dummy
-# Навигация: per-player Z/X позиция и таймер компаса
 scoreboard objectives add fl_nav dummy
 
 scoreboard players set #global fl_state 0
@@ -38,7 +37,12 @@ scoreboard players set #global fl_timer 0
 scoreboard players set #sound_timer fl_math 0
 scoreboard players set #zone_state fl_math 0
 scoreboard players set #compass_timer fl_math 0
+scoreboard players set #speclock_timer fl_math 0
+scoreboard players set #hud_timer fl_math 0
+# Константы
 scoreboard players set #1200 fl_math 1200
+scoreboard players set #4 fl_math 4
+scoreboard players set #20 fl_math 20
 
 bossbar remove zov:progress
 bossbar add zov:progress "ZOV"

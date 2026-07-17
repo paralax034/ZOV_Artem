@@ -1,7 +1,8 @@
 # ЗОНА A2 (-11 72 -289 -> 0 90 -272)
+# tag=!fl_waiting — мёртвые НЕ считаются в зоне
 
-execute store result score #red_here fl_math run execute if entity @a[team=red,x=-11,y=72,z=-289,dx=11,dy=18,dz=17]
-execute store result score #blue_here fl_math run execute if entity @a[team=blue,x=-11,y=72,z=-289,dx=11,dy=18,dz=17]
+execute store result score #red_here fl_math run execute if entity @a[team=red,tag=!fl_waiting,x=-11,y=72,z=-289,dx=11,dy=18,dz=17]
+execute store result score #blue_here fl_math run execute if entity @a[team=blue,tag=!fl_waiting,x=-11,y=72,z=-289,dx=11,dy=18,dz=17]
 
 scoreboard players set #zone_state fl_math 0
 execute if score #red_here fl_math matches 1.. if score #blue_here fl_math matches 1.. run scoreboard players set #zone_state fl_math 2

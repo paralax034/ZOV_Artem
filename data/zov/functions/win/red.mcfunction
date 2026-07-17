@@ -1,5 +1,6 @@
 # ================================================
 # ZOV — ПОБЕДА КРАСНЫХ
+# Звук достижения убран, молния оставлена
 # ================================================
 
 scoreboard players set #global fl_state 2
@@ -15,7 +16,6 @@ title @a times 20 100 20
 title @a title [{"text":"ПОБЕДА!","color":"red","bold":true}]
 title @a subtitle [{"text":"Красные захватили завод.","color":"white"}]
 
-playsound minecraft:ui.toast.challenge_complete master @a ~ ~ ~ 1.5 0.8
 tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"Все 7 точек захвачены! Красные победили!","color":"red","bold":true}]
 
 schedule function zov:reset 200t

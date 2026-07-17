@@ -12,18 +12,17 @@ scoreboard players set #sound_timer fl_math 0
 scoreboard players set #zone_state fl_math 0
 
 tag @a remove fl_waiting
+tag @a remove fl_navigator
 scoreboard players set @a fl_dead 0
 
-effect clear @a minecraft:resistance
-effect clear @a minecraft:slowness
-effect clear @a minecraft:mining_fatigue
+team empty blue
+team empty red
 
+# Возврат из спектатора
 gamemode adventure @a
 
-# --- ОЧИСТКА КАРТЫ (техника, снаряды, мины, предметы) ---
 function zov:cleanup
 
-# Убираем lodestone блоки
 setblock 37 62 -406 minecraft:stone
 setblock -5 71 -280 minecraft:stone
 setblock -186 54 -164 minecraft:stone
@@ -37,7 +36,6 @@ bossbar set zov:progress color white
 bossbar set zov:progress name {"text":"Ожидание старта..."}
 bossbar set zov:progress visible false
 
-# Телепортируем всех на точку сбора
 tp @a 50 48 -457 0 0
 
 title @a times 10 40 10
