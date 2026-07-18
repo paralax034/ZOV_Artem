@@ -1,13 +1,5 @@
 # ================================================
 # ZOV — TICK LOGIC (каждые 4 тика = 5 раз/сек)
-#
-# Приоритет actionbar (последний write побеждает):
-#   1. blue_nav    — низший, базовая навигация синих
-#   2. wrong_zone  — подсказка красным вне зоны
-#   3. effects     — высший, шкала захвата перекрывает всё
-#
-# П-11: blue_nav перемещён ДО check_N, effects вызывается
-#        внутри check_N — гарантированно перекрывает навигацию
 # ================================================
 
 # --- 1. Таймер раунда ---
@@ -28,12 +20,15 @@ function zov:nav/blue_nav
 # --- 5. Подсказка красным вне зоны ---
 function zov:zone/wrong_zone
 
-# --- 6. Тег компаса раз в 20 тиков (ДО compass) ---
-execute if score #compass_timer fl_math matches 20.. run function zov:internal/update_compass_tag
+# --- 6. Инкремент объединенного таймера (вызывается каждые 4 тика) ---
+scoreboard players add #timer_20 fl_math 1
 
-# --- 7. Компас раз в 20 тиков ---
-execute if score #global fl_state matches 1 if score #zone_state fl_math matches 0 if score #compass_timer fl_math matches 20.. run function zov:nav/compass
-execute if score #compass_timer fl_math matches 20.. run scoreboard players set #compass_timer fl_math 0
+# --- 7. Пакет 20-тиковых задач (выполняется за раз, только когда таймер равен 5) ---
+execute if score #timer_20 fl_math matches 5.. run function zov:internal/update_compass_tag
+execute if score #global fl_state matches 1 if score #zone_state fl_math matches 0 if score #timer_20 fl_math matches 5.. run function zov:nav/compass
+execute if score #timer_20 fl_math matches 5.. run function zov:hud/bossbar
+execute if score #timer_20 fl_math matches 5.. as @a[tag=fl_waiting] run function zov:spawn/spec_lock
+execute if score #timer_20 fl_math matches 5.. run scoreboard players set #timer_20 fl_math 0
 
 # --- 8. Проверка зоны + effects внутри (высший приоритет actionbar) ---
 scoreboard players set #zone_state fl_math 0
@@ -45,12 +40,7 @@ execute if score #global fl_active matches 5 run function zov:zone/check_5
 execute if score #global fl_active matches 6 run function zov:zone/check_6
 execute if score #global fl_active matches 7 run function zov:zone/check_7
 
-# --- 9. Bossbar: раз в 20 тиков (5 вызовов × 4 тика) ---
-scoreboard players add #hud_timer fl_math 1
-execute if score #hud_timer fl_math matches 5.. run function zov:hud/bossbar
-execute if score #hud_timer fl_math matches 5.. run scoreboard players set #hud_timer fl_math 0
-
-# --- 10. Лодки: раз в 60 секунд (300 вызовов × 4 тика = 1200 тиков) ---
-scoreboard players add #boat_timer fl_math 1
-execute if score #boat_timer fl_math matches 300.. run function zov:internal/boat_spawn
-execute if score #boat_timer fl_math matches 300.. run scoreboard players set #boat_timer fl_math 0
+# --- 9. Лодки: раз в 60 секунд (настоящие 1200 тиков, шаг 4) ---
+scoreboard players add #boat_timer fl_math 4
+execute if score #boat_timer fl_math matches 1200.. run function zov:internal/boat_spawn
+execute if score #boat_timer fl_math matches 1200.. run scoreboard players set #boat_timer fl_math 0

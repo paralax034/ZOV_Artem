@@ -1,21 +1,18 @@
 # ================================================
-# ZOV — HUD МЁРТВОГО ИГРОКА (runs as @s = fl_waiting)
-# П-6: шкалы вынесены в respawn_hud_a1 и respawn_hud_a2_7
-# Этот файл — диспетчер + idle + оспаривание
-# Вызывается каждые 4 тика из tick_logic
+# ZOV — HUD МЁРТВОГО ИГРОКА (Runs as @s = fl_waiting)
 # ================================================
 
-# Вычисляем секунды до респауна
-scoreboard players operation #respawn_sec fl_math = @s fl_dead
-scoreboard players operation #respawn_sec fl_math /= #20 fl_math
+# Расчет времени до респауна
+scoreboard players operation #temp fl_math = @s fl_dead
+scoreboard players operation #temp fl_math /= #20 fl_math
 
-# --- Idle (захвата нет) ---
-execute if score #zone_state fl_math matches 0 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"Респаун через ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":" сек.","color":"white"}]
-execute if score #zone_state fl_math matches 0 if score #respawn_sec fl_math matches ..0 run title @s actionbar [{"text":"Респаун...","color":"red","bold":true}]
+# --- Свободный статус ---
+execute if score #zone_state fl_math matches 0 if score #temp fl_math matches 1.. run title @s actionbar [{"text":"Респаун через ","color":"white"},{"score":{"name":"#temp","objective":"fl_math"},"color":"yellow","bold":true},{"text":" сек.","color":"white"}]
+execute if score #zone_state fl_math matches 0 if score #temp fl_math matches ..0 run title @s actionbar [{"text":"Респаун...","color":"red","bold":true}]
 
-# --- Захват: диспетчер по зоне ---
+# --- Захват точки ---
 execute if score #zone_state fl_math matches 1 if score #global fl_active matches 1 run function zov:spawn/respawn_hud_a1
 execute if score #zone_state fl_math matches 1 if score #global fl_active matches 2..7 run function zov:spawn/respawn_hud_a2_7
 
-# --- Оспаривается ---
-execute if score #zone_state fl_math matches 2 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"⚠ ОСПАРИВАЕТСЯ  ","color":"yellow","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
+# --- Оспаривание зоны ---
+execute if score #zone_state fl_math matches 2 if score #temp fl_math matches 1.. run title @s actionbar [{"text":"⚠ ОСПАРИВАЕТСЯ  ","color":"yellow","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#temp","objective":"fl_math"},"color":"yellow","bold":true},{"text":"сек","color":"white"}]

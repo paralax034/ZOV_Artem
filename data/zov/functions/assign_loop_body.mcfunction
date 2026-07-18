@@ -1,9 +1,3 @@
-# ================================================
-# ZOV — ТЕЛО ЦИКЛА РАСПРЕДЕЛЕНИЯ
-# П-8: tag @a remove → tag @a[tag=fl_to_assign] remove
-# Перебираются только игроки с тегом, а не все подряд
-# ================================================
-
 # Шаг 1: Фиксируем текущий ход
 scoreboard players operation #assign_prev fl_assign = #assign_turn fl_assign
 
@@ -16,7 +10,6 @@ execute if score #assign_prev fl_assign matches 1 as @a[tag=fl_to_assign] run te
 
 # Снимаем теги — игрок распределён
 execute as @a[tag=fl_to_assign] run tag @s remove fl_unassigned
-# П-8: фильтруем по тегу — не перебираем всех
 tag @a[tag=fl_to_assign] remove fl_to_assign
 
 # Шаг 4: Переключаем ход

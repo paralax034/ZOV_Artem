@@ -1,13 +1,10 @@
 # ================================================
-# ZOV — ТЕЛЕПОРТ НА СПАВН (runs as @s)
-# П-3: Инкремент #spawn_index до вызова tp — каждый игрок
-#      получает уникальный остаток от деления, телефраги исключены
+# ZOV — ТЕЛЕПОРТ НА СПАВН С НАБОРОМ КЛАССА
 # ================================================
 
 tag @s remove fl_waiting
 gamemode survival @s
 
-# Инкрементируем глобальный счётчик спавнов — ДО телепорта
 scoreboard players add #spawn_index fl_math 1
 
 execute if entity @s[team=red] run function zov:spawn/tp_red
@@ -15,22 +12,22 @@ execute if entity @s[team=blue] run function zov:spawn/tp_blue
 
 execute at @s run playsound minecraft:entity.experience_orb.pickup master @s ~ ~ ~ 1.0 1.0
 
-# === ЗАЩИТА ОТ ДЮПА ТЕПЛОВИЗОРА ===
-execute store result score #tmp_goggles fl_math run clear @s superbwarfare:thermal_imaging_goggles 0
-execute if score #tmp_goggles fl_math matches 2.. run clear @s superbwarfare:thermal_imaging_goggles
-execute if score #tmp_goggles fl_math matches 2.. run give @s superbwarfare:thermal_imaging_goggles 1
+# === Защита от дюпа тепловизора (Использование #temp) ===
+execute store result score #temp fl_math run clear @s superbwarfare:thermal_imaging_goggles 0
+execute if score #temp fl_math matches 2.. run clear @s superbwarfare:thermal_imaging_goggles
+execute if score #temp fl_math matches 2.. run give @s superbwarfare:thermal_imaging_goggles 1
 
-# === БРОНЕПЛАСТИНЫ: +1 только если < 2 ===
+# === Бронепластины ===
 execute store result score @s fl_math run clear @s superbwarfare:armor_plate 0
 execute if score @s fl_math matches ..1 run give @s superbwarfare:armor_plate 1
 
-# === ХЛЕБ: +4 только если < 8, срезать до 8 ===
+# === Хлеб (Использование #temp) ===
 execute store result score @s fl_math run clear @s minecraft:bread 0
 execute if score @s fl_math matches ..7 run give @s minecraft:bread 4
-execute if score @s fl_math matches ..7 store result score #tmp_bread fl_math run clear @s minecraft:bread 0
-execute if score @s fl_math matches ..7 if score #tmp_bread fl_math matches 9.. run clear @s minecraft:bread
-execute if score @s fl_math matches ..7 if score #tmp_bread fl_math matches 9.. run give @s minecraft:bread 8
+execute if score @s fl_math matches ..7 store result score #temp fl_math run clear @s minecraft:bread 0
+execute if score @s fl_math matches ..7 if score #temp fl_math matches 9.. run clear @s minecraft:bread
+execute if score @s fl_math matches ..7 if score #temp fl_math matches 9.. run give @s minecraft:bread 8
 
-# === ПАТРОНЫ: +2 только если < 4 ===
+# === Патроны ===
 execute store result score @s fl_math run clear @s superbwarfare:rifle_ammo_box 0
 execute if score @s fl_math matches ..3 run give @s superbwarfare:rifle_ammo_box 2

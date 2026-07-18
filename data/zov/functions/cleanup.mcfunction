@@ -12,17 +12,15 @@ kill @e[type=superbwarfare:tm_62]
 kill @e[type=superbwarfare:blu_43]
 kill @e[type=item]
 kill @e[type=corpse:corpse]
-# Лодки у базы красных (1.20.1: type=boat, не oak_boat)
-kill @e[type=minecraft:boat,x=22,y=64,z=-807,distance=..100]
+kill @e[type=minecraft:boat,tag=fl_boat]
 
-# Очистка обычного инвентаря
+# Очистка инвентарей
 clear @a
-# Очистка раскрытых патронов-предметов
 clear @a superbwarfare:rifle_ammo
 clear @a superbwarfare:rifle_ammo_box
-# Curios: RESET (не clear!) — официальный API
 execute as @a run curios reset @s
-# Патроны мода — данные на игроке, не предметы
+
+# Патроны мода
 execute as @a run superbwarfare ammo set @s rifle 0
 execute as @a run superbwarfare ammo set @s handgun 0
 execute as @a run superbwarfare ammo set @s sniper 0
