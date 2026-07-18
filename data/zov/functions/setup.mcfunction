@@ -39,6 +39,22 @@ scoreboard players set #zone_state fl_math 0
 scoreboard players set #compass_timer fl_math 0
 scoreboard players set #speclock_timer fl_math 0
 scoreboard players set #hud_timer fl_math 0
+
+# Таймер лодок: 0→300 (каждые 300 вызовов tick_logic = 60 сек)
+scoreboard players set #boat_timer fl_math 0
+# Вспомогательные переменные лодок
+scoreboard players set #boat_count fl_math 0
+scoreboard players set #boat_skip fl_math 0
+
+# Вспомогательная переменная для тепловизора
+scoreboard players set #tmp_goggles fl_math 0
+# Вспомогательная переменная для обратного отсчёта
+scoreboard players set #cd_mod fl_math 0
+
+# Снимок хода распределения (используется в assign_loop_body)
+scoreboard players set #assign_turn fl_assign 0
+scoreboard players set #assign_prev fl_assign 0
+
 # Константы
 scoreboard players set #1200 fl_math 1200
 scoreboard players set #4 fl_math 4

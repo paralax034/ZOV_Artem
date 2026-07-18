@@ -1,26 +1,20 @@
 # ================================================
-# ZOV — ЦИКЛ РАСПРЕДЕЛЕНИЯ
-# Использует fl_assign (отдельный скорборд)
+# ZOV — ЦИКЛ РАСПРЕДЕЛЕНИЯ ПО КОМАНДАМ
+# Использует скорборд fl_assign
+#
+# Алгоритм (один игрок за вызов):
+#   1. Копируем текущий ход в #assign_prev
+#   2. Берём одного случайного нераспределённого → fl_to_assign
+#   3. По КОПИИ решаем: red (0) или blue (1)
+#   4. Переключаем ход ПОСЛЕ назначения
+#   5. Рекурсия если остались нераспределённые
+#
+# Почему копия (#assign_prev):
+#   Без копии: set turn=1 → следующая строка matches 1 → true →
+#   ОБА блока срабатывают за одну итерацию (исходный баг)
+#   С копией: решение принимается по значению ДО изменения
 # ================================================
 
-# Если нераспределённых нет — стоп
-execute unless entity @a[tag=fl_unassigned] run return 0
-
-# Чётный ход (0) → red
-execute if score #assign_turn fl_assign matches 0 run tag @a[tag=fl_unassigned,limit=1,sort=random] add fl_to_red
-execute as @a[tag=fl_to_red] run team join red @s
-# Сразу снимаем fl_unassigned — чтобы следующий блок не взял того же игрока
-execute as @a[tag=fl_to_red] run tag @s remove fl_unassigned
-tag @a remove fl_to_red
-execute if score #assign_turn fl_assign matches 0 run scoreboard players set #assign_turn fl_assign 1
-
-# Нечётный ход (1) → blue
-execute if score #assign_turn fl_assign matches 1 run tag @a[tag=fl_unassigned,limit=1,sort=random] add fl_to_blue
-execute as @a[tag=fl_to_blue] run team join blue @s
-# Сразу снимаем fl_unassigned
-execute as @a[tag=fl_to_blue] run tag @s remove fl_unassigned
-tag @a remove fl_to_blue
-execute if score #assign_turn fl_assign matches 1 run scoreboard players set #assign_turn fl_assign 0
-
-# Рекурсия — следующий игрок
-execute if entity @a[tag=fl_unassigned] run function zov:assign_loop
+# Если нераспределённых нет — все условия ниже просто не найдут цель
+# return недоступен в 1.20.1, поэтому гуард через if entity
+execute if entity @a[tag=fl_unassigned] run function zov:assign_loop_body

@@ -17,4 +17,6 @@ tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"+5 минут 
 # Обновляем навигацию
 function zov:nav/update
 
+# Название ставим один раз при старте, значение — из tick_logic
+function zov:hud/bossbar_name
 function zov:hud/bossbar

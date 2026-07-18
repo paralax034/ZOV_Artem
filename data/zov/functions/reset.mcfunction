@@ -10,6 +10,8 @@ scoreboard players set #global fl_round 24000
 scoreboard players set #global fl_timer 0
 scoreboard players set #sound_timer fl_math 0
 scoreboard players set #zone_state fl_math 0
+# Сброс таймера лодок
+scoreboard players set #boat_timer fl_math 0
 
 tag @a remove fl_waiting
 tag @a remove fl_navigator

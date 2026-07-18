@@ -104,6 +104,8 @@ summon superbwarfare:bmp_2 24 64 -819 {WeaponState:{Missile:{Count:1b,tag:{Perks
 
 tellraw @a[team=red] [{"text":"[ZOV] ","color":"red","bold":true},{"text":"БМП-2 готова на базе!","color":"green"}]
 
+# Название ставим один раз при старте, значение — из tick_logic
+function zov:hud/bossbar_name
 function zov:hud/bossbar
 
 title @a times 20 60 20
@@ -112,3 +114,9 @@ title @a subtitle [{"text":"Красные атакуют  •  Синие за�
 tellraw @a [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Первая цель: ","color":"white"},{"text":"ТОЧКА A1","color":"yellow","bold":true}]
 tellraw @a[team=red,tag=fl_navigator] [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Ты навигатор — держи компас в руке!","color":"yellow"}]
 tellraw @a[team=blue] [{"text":"[ZOV] ","color":"aqua","bold":true},{"text":"Компас ведёт к вашей точке защиты.","color":"aqua"}]
+
+# Начальное объявление времени
+tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"До конца раунда: ","color":"white"},{"text":"20 минут","color":"green","bold":true}]
+
+# Сброс таймера лодок — первая лодка появится через 60 сек
+scoreboard players set #boat_timer fl_math 0

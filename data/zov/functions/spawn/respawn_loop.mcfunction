@@ -1,43 +1,17 @@
 # ================================================
 # ZOV — ТАЙМЕР РЕСПАУНА (runs as @s = fl_waiting игрок)
-# A1: макс прогресс 200, остальные 300 — шкала считается динамически
+# Вызывается каждый тик из tick.mcfunction
+#
+# Только 3 операции:
+#   1. Декремент таймера смерти
+#   2. Триггер респауна при достижении нуля
+#
+# Вся визуализация (actionbar, прогресс-бар) —
+# в spawn/respawn_hud, вызывается каждые 4 тика
 # ================================================
 
+# Декремент: -1 тик за вызов
 scoreboard players remove @s fl_dead 1
 
-scoreboard players operation #respawn_sec fl_math = @s fl_dead
-scoreboard players operation #respawn_sec fl_math /= #20 fl_math
-
-# --- Idle ---
-execute if score #zone_state fl_math matches 0 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"Респаун через ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":" сек.","color":"white"}]
-execute if score #zone_state fl_math matches 0 if score #respawn_sec fl_math matches ..0 run title @s actionbar [{"text":"Респаун...","color":"red","bold":true}]
-
-# --- Захват идёт (A1: 200, A2-A7: 300) ---
-# A1 шкала (макс 200)
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 1..20 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|","color":"red","bold":true},{"text":"|||||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 21..40 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||","color":"red","bold":true},{"text":"||||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 41..60 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|||","color":"red","bold":true},{"text":"|||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 61..80 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||||","color":"red","bold":true},{"text":"||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 81..100 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|||||","color":"red","bold":true},{"text":"|||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 101..120 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||||||","color":"red","bold":true},{"text":"||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 121..140 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|||||||","color":"red","bold":true},{"text":"|||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 141..160 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||||||||","color":"red","bold":true},{"text":"||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 161..180 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|||||||||","color":"red","bold":true},{"text":"|  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 if score #global fl_progress matches 181..200 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||||||||||  ","color":"red","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-
-# A2-A7 шкала (макс 300)
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 1..30 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|","color":"red","bold":true},{"text":"|||||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 31..60 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||","color":"red","bold":true},{"text":"||||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 61..90 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|||","color":"red","bold":true},{"text":"|||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 91..120 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||||","color":"red","bold":true},{"text":"||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 121..150 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|||||","color":"red","bold":true},{"text":"|||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 151..180 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||||||","color":"red","bold":true},{"text":"||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 181..210 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|||||||","color":"red","bold":true},{"text":"|||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 211..240 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||||||||","color":"red","bold":true},{"text":"||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 241..270 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|||||||||","color":"red","bold":true},{"text":"|  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-execute if score #global fl_active matches 2..7 if score #zone_state fl_math matches 1 if score #global fl_progress matches 271..300 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||||||||||  ","color":"red","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-
-# --- Оспаривается ---
-execute if score #zone_state fl_math matches 2 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"⚠ ОСПАРИВАЕТСЯ  ","color":"yellow","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
-
+# Триггер респауна: fl_dead достиг нуля
 execute if score @s fl_dead matches ..0 run function zov:spawn/do_respawn
