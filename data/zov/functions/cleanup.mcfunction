@@ -12,8 +12,8 @@ kill @e[type=superbwarfare:tm_62]
 kill @e[type=superbwarfare:blu_43]
 kill @e[type=item]
 kill @e[type=corpse:corpse]
-# Лодки у базы красных (1.20.1: type=boat, не oak_boat)
-kill @e[type=minecraft:boat,x=22,y=64,z=-807,distance=..100]
+# Только наши лодки по тегу — не трогаем чужие
+kill @e[type=minecraft:boat,tag=fl_boat]
 
 # Очистка обычного инвентаря
 clear @a

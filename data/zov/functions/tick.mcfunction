@@ -1,20 +1,16 @@
 # ================================================
 # ZOV — TICK (каждый тик, ~20 раз/сек)
 #
-# Что происходит каждый тик:
-#   1. death_check  — мгновенная реакция на смерть
-#   2. respawn_loop — только декремент fl_dead + триггер респауна
-#   3. speclock     — принудительный TP спека (раз в 20 тиков)
-#   4. tick_logic   — вся игровая логика (раз в 4 тика)
-#
-# respawn_hud (визуализация мёртвых) — в tick_logic каждые 4 тика
-# compass_timer — инкремент здесь, вызов и сброс в tick_logic
+# fl_state=0 — ожидание
+# fl_state=1 — бой
+# fl_state=2 — подготовка (барьер + таймер)
+# fl_state=3 — раунд завершён
 # ================================================
 
-# --- Детект смерти: каждый тик, только во время игры ---
+# --- Детект смерти: только во время боя ---
 execute if score #global fl_state matches 1 as @a run function zov:spawn/death_check
 
-# --- Таймер мёртвых: каждый тик (только декремент + триггер) ---
+# --- Таймер мёртвых: каждый тик ---
 execute as @a[tag=fl_waiting] run function zov:spawn/respawn_loop
 
 # --- Блокировка позиции спека: раз в 20 тиков ---
@@ -22,7 +18,10 @@ scoreboard players add #speclock_timer fl_math 1
 execute if score #speclock_timer fl_math matches 20.. as @a[tag=fl_waiting] run function zov:spawn/spec_lock
 execute if score #speclock_timer fl_math matches 20.. run scoreboard players set #speclock_timer fl_math 0
 
-# --- Инкремент таймера компаса: вызов и сброс в tick_logic ---
+# --- Фаза подготовки ---
+execute if score #global fl_state matches 2 run function zov:start/prep_tick
+
+# --- Инкремент таймера компаса ---
 scoreboard players add #compass_timer fl_math 1
 
 # --- Основная логика: раз в 4 тика ---
