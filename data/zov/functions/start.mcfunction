@@ -5,9 +5,7 @@
 scoreboard players set #canstart fl_math 1
 
 execute if score #global fl_state matches 1 run scoreboard players set #canstart fl_math 0
-execute if score #global fl_state matches 1 run tellraw @a [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Игра уже идёт! ","color":"red"},{"text":"/function zov:reset","color":"yellow"},{"text":" для сброса.","color":"gray"}]
-
-execute if score #canstart fl_math matches 0 run tellraw @a [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Запуск отменён.","color":"red"}]
+execute if score #global fl_state matches 1 run tellraw @a [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Игра уже идёт!","color":"red"}]
 execute unless score #canstart fl_math matches 1 run return 0
 
 function zov:cleanup
@@ -15,6 +13,8 @@ function zov:cleanup
 gamerule keepInventory true
 gamerule doImmediateRespawn true
 gamerule naturalRegeneration true
+# Смерти не показываем — детект через fl_deaths scoreboard
+gamerule showDeathMessages false
 
 gamemode survival @a
 
@@ -53,6 +53,10 @@ scoreboard players set #global fl_round 24000
 scoreboard players set #sound_timer fl_math 0
 scoreboard players set #zone_state fl_math 0
 
+# Инициализируем счётчик спавнов от текущего времени мира —
+# каждая игра начинается с уникального зерна рандома
+execute store result score #spawn_index fl_math run time query gametime
+
 bossbar set zov:progress visible true
 bossbar set zov:progress value 24000
 
@@ -68,7 +72,6 @@ give @a[team=blue] superbwarfare:us_chest_iotv{Unbreakable:1b} 1
 give @a[team=red] superbwarfare:ak_12 1
 give @a[team=blue] superbwarfare:m_4 1
 
-# x2 патронов коробок
 give @a superbwarfare:rifle_ammo_box 14
 give @a superbwarfare:armor_plate 4
 give @a superbwarfare:medical_kit 3
@@ -78,7 +81,6 @@ give @a superbwarfare:hand_grenade 2
 give @a superbwarfare:knife 1
 give @a minecraft:bread 12
 
-# Тепловизоры/ПНВ — только если включены в настройках
 execute if score #goggles_enabled fl_math matches 1 run give @a superbwarfare:thermal_imaging_goggles 1
 
 give @a[team=red] superbwarfare:m18_smoke_grenade 2
@@ -96,7 +98,6 @@ give @a[tag=fl_tow_operator] superbwarfare:tow_deployer 1
 give @a[tag=fl_tow_operator] superbwarfare:medium_anti_ground_missile 1
 tag @a remove fl_tow_operator
 
-# Компасы: навигатор красных + все синие (через nav/update)
 tag @a[team=red,limit=1,sort=random] add fl_navigator
 function zov:nav/update
 
@@ -104,19 +105,15 @@ summon superbwarfare:bmp_2 24 64 -819 {WeaponState:{Missile:{Count:1b,tag:{Perks
 
 tellraw @a[team=red] [{"text":"[ZOV] ","color":"red","bold":true},{"text":"БМП-2 готова на базе!","color":"green"}]
 
-# Название ставим один раз при старте, значение — из tick_logic
 function zov:hud/bossbar_name
 function zov:hud/bossbar
 
 title @a times 20 60 20
 title @a title [{"text":"БОЙ НАЧАЛСЯ","color":"red","bold":true}]
 title @a subtitle [{"text":"Красные атакуют  •  Синие защищают","color":"white"}]
-tellraw @a [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Первая цель: ","color":"white"},{"text":"ТОЧКА A1","color":"yellow","bold":true}]
-tellraw @a[team=red,tag=fl_navigator] [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Ты навигатор — держи компас в руке!","color":"yellow"}]
-tellraw @a[team=blue] [{"text":"[ZOV] ","color":"aqua","bold":true},{"text":"Компас ведёт к вашей точке защиты.","color":"aqua"}]
 
-# Начальное объявление времени
-tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"До конца раунда: ","color":"white"},{"text":"20 минут","color":"green","bold":true}]
+# Только игровые сообщения — без технических подсказок
+tellraw @a[team=red] [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Захватите точку ","color":"white"},{"text":"A1","color":"yellow","bold":true}]
+tellraw @a[team=blue] [{"text":"[ZOV] ","color":"aqua","bold":true},{"text":"Защищайте точку ","color":"white"},{"text":"A1","color":"yellow","bold":true}]
 
-# Сброс таймера лодок — первая лодка появится через 60 сек
 scoreboard players set #boat_timer fl_math 0

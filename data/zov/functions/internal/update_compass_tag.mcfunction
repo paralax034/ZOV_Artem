@@ -1,17 +1,12 @@
 # ================================================
-# ZOV — ЕДИНСТВЕННАЯ NBT-ПРОВЕРКА В ДАТАПАКЕ
+# ZOV — ОБНОВЛЕНИЕ ТЕГА КОМПАСА
+# П-5: nbt={SelectedItem:{...}} заменён на predicate=zov:holds_compass
+# Предикат компилируется при загрузке, работает быстрее NBT-парсинга
 # Вызывается раз в 20 тиков из tick_logic
-#
-# Результат кешируется в теге fl_holds_compass:
-#   - wrong_zone читает tag=!fl_holds_compass
-#   - compass читает tag=fl_holds_compass
-#
-# Вместо: N_игроков × 48 NBT-проверок каждые 4-20 тиков
-# Стало:  2 команды 1 раз в 20 тиков
 # ================================================
 
 # Сброс у всех — чистое состояние перед проверкой
 tag @a remove fl_holds_compass
 
-# Ставим тег только тем, у кого компас в активном слоте руки
-tag @a[nbt={SelectedItem:{id:"minecraft:compass"}}] add fl_holds_compass
+# Ставим тег через предикат — быстрее NBT-проверки
+tag @a[predicate=zov:holds_compass] add fl_holds_compass

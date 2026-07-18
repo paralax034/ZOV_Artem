@@ -1,10 +1,12 @@
 # ================================================
 # ZOV — СЛУЧАЙНЫЙ СПАВН КРАСНЫХ (runs as @s)
-# База: 4 фиксированные точки, выбор через gametime % 4
-# После захватов: 4 точки каждой зоны (те же что у синих)
+# П-3: gametime % 4 заменён на #spawn_index % 4
+# Каждый вызов do_respawn инкрементирует #spawn_index →
+# одновременные респауны получают разные точки спавна
 # ================================================
 
-execute store result score #spawn_rand fl_math run time query gametime
+# Вычисляем индекс для ЭТОГО игрока
+scoreboard players operation #spawn_rand fl_math = #spawn_index fl_math
 scoreboard players operation #spawn_rand fl_math %= #4 fl_math
 
 # --- База (до первого захвата) ---
@@ -37,11 +39,11 @@ execute if score #global fl_captured matches 4 if score #spawn_rand fl_math matc
 execute if score #global fl_captured matches 4 if score #spawn_rand fl_math matches 2 run tp @s -388 74 -267
 execute if score #global fl_captured matches 4 if score #spawn_rand fl_math matches 3 run tp @s -383 64 -269
 
-# --- Захвачена A5 ---
+# --- Захвачена A5 (П-4: все 4 точки разные) ---
 execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 0 run tp @s -439 64 42
-execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 1 run tp @s -439 64 42
-execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 2 run tp @s -439 64 42
-execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 3 run tp @s -376 64 43
+execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 1 run tp @s -376 64 43
+execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 2 run tp @s -415 64 55
+execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 3 run tp @s -402 64 68
 
 # --- Захвачена A6 ---
 execute if score #global fl_captured matches 6 if score #spawn_rand fl_math matches 0 run tp @s -153 63 114

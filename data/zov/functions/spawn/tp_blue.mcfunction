@@ -1,9 +1,11 @@
 # ================================================
 # ZOV — TP СИНИХ: случайная из 4 точек (runs as @s)
-# Рандом: gametime % 4 → 0..3
+# П-3: gametime % 4 заменён на #spawn_index % 4
+# П-4: A5 — все 4 точки теперь разные
 # ================================================
 
-execute store result score #spawn_rand fl_math run time query gametime
+# Вычисляем индекс для ЭТОГО игрока
+scoreboard players operation #spawn_rand fl_math = #spawn_index fl_math
 scoreboard players operation #spawn_rand fl_math %= #4 fl_math
 
 # --- A1 ---
@@ -30,11 +32,11 @@ execute if score #global fl_active matches 4 if score #spawn_rand fl_math matche
 execute if score #global fl_active matches 4 if score #spawn_rand fl_math matches 2 run tp @s -388 74 -267
 execute if score #global fl_active matches 4 if score #spawn_rand fl_math matches 3 run tp @s -383 64 -269
 
-# --- A5 ---
+# --- A5 (П-4: все 4 точки разные) ---
 execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 0 run tp @s -439 64 42
-execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 1 run tp @s -439 64 42
-execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 2 run tp @s -439 64 42
-execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 3 run tp @s -376 64 43
+execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 1 run tp @s -376 64 43
+execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 2 run tp @s -415 64 55
+execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 3 run tp @s -402 64 68
 
 # --- A6 ---
 execute if score #global fl_active matches 6 if score #spawn_rand fl_math matches 0 run tp @s -153 63 114
@@ -45,5 +47,5 @@ execute if score #global fl_active matches 6 if score #spawn_rand fl_math matche
 # --- A7 ---
 execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 0 run tp @s 309 99 205
 execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 1 run tp @s 355 99 216
-execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 2 run tp @s 355 99 216
-execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 3 run tp @s 363 75 200
+execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 2 run tp @s 363 75 200
+execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 3 run tp @s 340 99 210

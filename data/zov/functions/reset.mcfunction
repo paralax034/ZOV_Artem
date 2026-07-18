@@ -10,7 +10,6 @@ scoreboard players set #global fl_round 24000
 scoreboard players set #global fl_timer 0
 scoreboard players set #sound_timer fl_math 0
 scoreboard players set #zone_state fl_math 0
-# Сброс таймера лодок
 scoreboard players set #boat_timer fl_math 0
 
 tag @a remove fl_waiting
@@ -20,7 +19,6 @@ scoreboard players set @a fl_dead 0
 team empty blue
 team empty red
 
-# Возврат из спектатора
 gamemode adventure @a
 
 function zov:cleanup
@@ -33,6 +31,9 @@ setblock -412 55 58 minecraft:stone
 setblock -171 54 122 minecraft:stone
 setblock 312 90 211 minecraft:stone
 
+# Восстанавливаем правило — на случай если было изменено вручную
+gamerule showDeathMessages false
+
 bossbar set zov:progress value 24000
 bossbar set zov:progress color white
 bossbar set zov:progress name {"text":"Ожидание старта..."}
@@ -42,6 +43,5 @@ tp @a 50 48 -457 0 0
 
 title @a times 10 40 10
 title @a title [{"text":"Раунд окончен","color":"gray"}]
-title @a subtitle [{"text":"/function zov:start","color":"yellow"}]
 
-tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"Раунд сброшен.","color":"gray"}]
+tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"Сброс выполнен.","color":"gray"}]

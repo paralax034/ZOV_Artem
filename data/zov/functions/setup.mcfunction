@@ -40,18 +40,13 @@ scoreboard players set #compass_timer fl_math 0
 scoreboard players set #speclock_timer fl_math 0
 scoreboard players set #hud_timer fl_math 0
 
-# Таймер лодок: 0→300 (каждые 300 вызовов tick_logic = 60 сек)
 scoreboard players set #boat_timer fl_math 0
-# Вспомогательные переменные лодок
 scoreboard players set #boat_count fl_math 0
 scoreboard players set #boat_skip fl_math 0
 
-# Вспомогательная переменная для тепловизора
 scoreboard players set #tmp_goggles fl_math 0
-# Вспомогательная переменная для обратного отсчёта
 scoreboard players set #cd_mod fl_math 0
 
-# Снимок хода распределения (используется в assign_loop_body)
 scoreboard players set #assign_turn fl_assign 0
 scoreboard players set #assign_prev fl_assign 0
 
@@ -59,9 +54,15 @@ scoreboard players set #assign_prev fl_assign 0
 scoreboard players set #1200 fl_math 1200
 scoreboard players set #4 fl_math 4
 scoreboard players set #20 fl_math 20
-# Настройки: 1=включено, 0=выключено
-# Менять через /function zov:settings/goggles_on (off)
+
+# Настройки
 scoreboard players set #goggles_enabled fl_math 1
+
+# Начальное значение счётчика — переинициализируется в start от gametime
+scoreboard players set #spawn_index fl_math 0
+
+# Скрываем сообщения о смерти — они мешают во время боя
+gamerule showDeathMessages false
 
 bossbar remove zov:progress
 bossbar add zov:progress "ZOV"
@@ -72,5 +73,5 @@ bossbar set zov:progress value 24000
 bossbar set zov:progress visible false
 bossbar set zov:progress players @a
 
-tellraw @a [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Датапак загружен. Введите ","color":"gray"},{"text":"/function zov:start","color":"yellow"},{"text":" для начала.","color":"gray"}]
-tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"Тепловизоры: ","color":"gray"},{"text":"ВКЛЮЧЕНЫ","color":"green"},{"text":" | /function zov:settings/goggles_off для отключения","color":"dark_gray"}]
+# Минимальное сообщение — только статус загрузки
+tellraw @a [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Готов. ","color":"gray"},{"text":"/function zov:start","color":"yellow"}]
