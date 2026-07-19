@@ -1,12 +1,27 @@
 # ================================================
-# ZOV — СПАВН ЛОДКИ: диспетчер
-# Вызывается раз в 60 сек из tick_logic и prep_tick_run.
+# ZOV — СПАВН ЛОДКИ У БАЗЫ КРАСНЫХ
+# Активен ТОЛЬКО пока A1 не захвачена (fl_captured=0)
 #
-# #boat_count считаем здесь один раз — чтобы не сканировать
-# entity дважды (в диспетчере и в теле).
-# Гуард fl_captured=0 здесь: нет смысла даже считать лодки
-# если система мертва.
+# Лодки получают тег fl_boat при спавне.
+# Подсчёт по тегу — не зависит от загрузки чанков:
+# даже если игроки уплыли, тег виден везде в загруженных чанках.
+# Лимит: 2 лодки одновременно.
+#
+# Спавн в радиусе 10 блоков от 32 63 -801
+# spreadplayers: minDistance=2 исключает стак
 # ================================================
 
-execute if score #global fl_captured matches 0 store result score #boat_count fl_math if entity @e[type=minecraft:boat,tag=fl_boat]
-execute if score #global fl_captured matches 0 if score #boat_count fl_math matches ..1 run function zov:internal/boat_spawn_run
+# Гуард: только до захвата A1
+execute unless score #global fl_captured matches 0 run return 0
+
+# Считаем наши лодки по тегу — независимо от позиции
+execute store result score #boat_count fl_math if entity @e[type=minecraft:boat,tag=fl_boat]
+
+# Лимит 2 лодки
+execute if score #boat_count fl_math matches 2.. run return 0
+
+# Спавн + тег сразу
+summon minecraft:boat 32 63 -801 {Type:"oak",Tags:["fl_boat"]}
+spreadplayers 32 -801 2 10 false @e[type=minecraft:boat,tag=fl_boat,limit=1,sort=nearest]
+
+tellraw @a[team=red] [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Лодка доставлена на базу!","color":"green"}]

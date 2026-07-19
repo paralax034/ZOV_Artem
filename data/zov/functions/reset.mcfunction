@@ -10,7 +10,9 @@ scoreboard players set #global fl_round 24000
 scoreboard players set #global fl_timer 0
 scoreboard players set #sound_timer fl_math 0
 scoreboard players set #zone_state fl_math 0
+# Сброс таймера лодок
 scoreboard players set #boat_timer fl_math 0
+# Сброс фазы подготовки
 scoreboard players set #prep_timer fl_math 0
 scoreboard players set #prep_hud_timer fl_math 0
 
@@ -21,8 +23,10 @@ scoreboard players set @a fl_dead 0
 team empty blue
 team empty red
 
+# Возврат из спектатора
 gamemode adventure @a
 
+# Снимаем неуязвимость если осталась с фазы подготовки
 effect clear @a minecraft:resistance
 
 function zov:cleanup

@@ -1,16 +1,18 @@
 # ================================================
-# ZOV — СТАРТ ФАЗА 2: диспетчер (без /return, 1.20.1)
-#
-# Эта функция вызывается только по schedule из phase_1.
-# Если skip_intro=1 — phase_1 вообще не запускалась,
-# значит и schedule не было → phase_2 никогда не вызовется.
-# Единственный оставшийся случай: skip/intro был вызван
-# вручную ВО ВРЕМЯ phase_1, т.е. prep_timer уже > 0
-# (phase_3 уже запущена) — нужно защититься от этого.
-#
-# Ветки:
-#   prep_timer > 0        → phase_3 уже запущена вручную, молчим
-#   prep_timer ≤ 0        → нормальная заставка, phase_2_run
+# ZOV — СТАРТ ФАЗА 2: вид с позиции синих (8 сек)
+# Вызывается через 8 сек после start (schedule)
 # ================================================
 
-execute if score #prep_timer fl_math matches ..0 run function zov:start/phase_2_run
+# Если заставка пропущена через skip/intro — не выполнять
+# phase_3 уже запущен напрямую из skip/intro
+execute if score #skip_intro fl_math matches 1 run return 0
+
+execute in minecraft:overworld run tp @a 82.35 98.76 -425.23 -596.76 33.50
+
+title @a times 10 80 10
+title @a title [{"text":"БРИФИНГ","color":"gold","bold":true}]
+title @a subtitle [{"text":"Синие защищают порт","color":"aqua"}]
+tellraw @a[team=blue] [{"text":"[ZOV] ","color":"aqua","bold":true},{"text":"Это ваш порт. Удержите его любой ценой!","color":"white"}]
+tellraw @a[team=red] [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Запомните ориентиры — скоро атака.","color":"white"}]
+
+schedule function zov:start/phase_3 8s

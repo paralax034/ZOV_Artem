@@ -12,6 +12,7 @@ kill @e[type=superbwarfare:tm_62]
 kill @e[type=superbwarfare:blu_43]
 kill @e[type=item]
 kill @e[type=corpse:corpse]
+# Только наши лодки по тегу — не трогаем чужие
 kill @e[type=minecraft:boat,tag=fl_boat]
 
 # Очистка инвентарей
