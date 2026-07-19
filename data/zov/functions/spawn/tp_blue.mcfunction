@@ -1,51 +1,72 @@
 # ================================================
-# ZOV — TP СИНИХ: случайная из 4 точек (runs as @s)
-# П-3: gametime % 4 заменён на #spawn_index % 4
-# П-4: A5 — все 4 точки теперь разные
+# ZOV — ДИНАМИЧЕСКИЙ TP СИНИХ (ЗАЩИТА)
+# Если идёт захват (zone_state=1) — спавн смещается в тыл
+# Если захвата нет — спавн случайный из 4 передовых точек
 # ================================================
 
-# Вычисляем индекс для ЭТОГО игрока
+# Вычисляем случайный индекс для передового спавна
 scoreboard players operation #spawn_rand fl_math = #spawn_index fl_math
 scoreboard players operation #spawn_rand fl_math %= #4 fl_math
 
 # --- A1 ---
-execute if score #global fl_active matches 1 if score #spawn_rand fl_math matches 0 run tp @s 43 70 -409
-execute if score #global fl_active matches 1 if score #spawn_rand fl_math matches 1 run tp @s 27 70 -409
-execute if score #global fl_active matches 1 if score #spawn_rand fl_math matches 2 run tp @s 45 74 -409
-execute if score #global fl_active matches 1 if score #spawn_rand fl_math matches 3 run tp @s 33 74 -409
+# Временный спавн при активном захвате Красными
+execute if score #global fl_active matches 1 if score #zone_state fl_math matches 1 run tp @s 30 72 -366
+# Стандартный случайный спавн (не идет захват)
+execute if score #global fl_active matches 1 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 0 run tp @s 43 70 -409
+execute if score #global fl_active matches 1 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 1 run tp @s 27 70 -409
+execute if score #global fl_active matches 1 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 2 run tp @s 45 74 -409
+execute if score #global fl_active matches 1 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 3 run tp @s 33 74 -409
 
 # --- A2 ---
-execute if score #global fl_active matches 2 if score #spawn_rand fl_math matches 0 run tp @s -9 72 -288
-execute if score #global fl_active matches 2 if score #spawn_rand fl_math matches 1 run tp @s -2 76 -275
-execute if score #global fl_active matches 2 if score #spawn_rand fl_math matches 2 run tp @s -3 80 -286
-execute if score #global fl_active matches 2 if score #spawn_rand fl_math matches 3 run tp @s -8 84 -289
+# Временный спавн при активном захвате Красными
+execute if score #global fl_active matches 2 if score #zone_state fl_math matches 1 run tp @s -3 76 -239
+# Стандартный случайный спавн (не идет захват)
+execute if score #global fl_active matches 2 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 0 run tp @s -9 72 -288
+execute if score #global fl_active matches 2 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 1 run tp @s -2 76 -275
+execute if score #global fl_active matches 2 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 2 run tp @s -3 80 -286
+execute if score #global fl_active matches 2 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 3 run tp @s -8 84 -289
 
 # --- A3 ---
-execute if score #global fl_active matches 3 if score #spawn_rand fl_math matches 0 run tp @s -189 64 -139
-execute if score #global fl_active matches 3 if score #spawn_rand fl_math matches 1 run tp @s -198 63 -129
-execute if score #global fl_active matches 3 if score #spawn_rand fl_math matches 2 run tp @s -183 64 -128
-execute if score #global fl_active matches 3 if score #spawn_rand fl_math matches 3 run tp @s -63 63 -197
+# Временный спавн при активном захвате Красными
+execute if score #global fl_active matches 3 if score #zone_state fl_math matches 1 run tp @s -244 64 -207
+# Стандартный случайный спавн (не идет захват)
+execute if score #global fl_active matches 3 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 0 run tp @s -189 64 -139
+execute if score #global fl_active matches 3 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 1 run tp @s -198 63 -129
+execute if score #global fl_active matches 3 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 2 run tp @s -183 64 -128
+execute if score #global fl_active matches 3 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 3 run tp @s -63 63 -197
 
 # --- A4 ---
-execute if score #global fl_active matches 4 if score #spawn_rand fl_math matches 0 run tp @s -387 63 -321
-execute if score #global fl_active matches 4 if score #spawn_rand fl_math matches 1 run tp @s -385 64 -288
-execute if score #global fl_active matches 4 if score #spawn_rand fl_math matches 2 run tp @s -388 74 -267
-execute if score #global fl_active matches 4 if score #spawn_rand fl_math matches 3 run tp @s -383 64 -269
+# Временный спавн при активном захвате Красными
+execute if score #global fl_active matches 4 if score #zone_state fl_math matches 1 run tp @s -521 63 -264 -90 0
+# Стандартный случайный спавн (не идет захват)
+execute if score #global fl_active matches 4 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 0 run tp @s -387 63 -321
+execute if score #global fl_active matches 4 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 1 run tp @s -385 64 -288
+execute if score #global fl_active matches 4 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 2 run tp @s -388 74 -267
+execute if score #global fl_active matches 4 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 3 run tp @s -383 64 -269
 
-# --- A5 (П-4: все 4 точки разные) ---
-execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 0 run tp @s -439 64 42
-execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 1 run tp @s -376 64 43
-execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 2 run tp @s -415 64 55
-execute if score #global fl_active matches 5 if score #spawn_rand fl_math matches 3 run tp @s -402 64 68
+# --- A5 ---
+# Временный спавн при активном захвате Красными
+execute if score #global fl_active matches 5 if score #zone_state fl_math matches 1 run tp @s -301 64 39
+# Стандартный случайный спавн (не идет захват)
+execute if score #global fl_active matches 5 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 0 run tp @s -439 64 42
+execute if score #global fl_active matches 5 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 1 run tp @s -376 64 43
+execute if score #global fl_active matches 5 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 2 run tp @s -415 64 55
+execute if score #global fl_active matches 5 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 3 run tp @s -402 64 68
 
 # --- A6 ---
-execute if score #global fl_active matches 6 if score #spawn_rand fl_math matches 0 run tp @s -153 63 114
-execute if score #global fl_active matches 6 if score #spawn_rand fl_math matches 1 run tp @s -142 63 132
-execute if score #global fl_active matches 6 if score #spawn_rand fl_math matches 2 run tp @s -146 63 103
-execute if score #global fl_active matches 6 if score #spawn_rand fl_math matches 3 run tp @s -152 63 145
+# Временный спавн при активном захвате Красными
+execute if score #global fl_active matches 6 if score #zone_state fl_math matches 1 run tp @s -85 64 8
+# Стандартный случайный спавн (не идет захват)
+execute if score #global fl_active matches 6 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 0 run tp @s -153 63 114
+execute if score #global fl_active matches 6 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 1 run tp @s -142 63 132
+execute if score #global fl_active matches 6 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 2 run tp @s -146 63 103
+execute if score #global fl_active matches 6 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 3 run tp @s -152 63 145
 
 # --- A7 ---
-execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 0 run tp @s 309 99 205
-execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 1 run tp @s 355 99 216
-execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 2 run tp @s 363 75 200
-execute if score #global fl_active matches 7 if score #spawn_rand fl_math matches 3 run tp @s 340 99 210
+# Временный спавн при активном захвате Красными
+execute if score #global fl_active matches 7 if score #zone_state fl_math matches 1 run tp @s 252 71 190
+# Стандартный случайный спавн (не идет захват)
+execute if score #global fl_active matches 7 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 0 run tp @s 309 99 205
+execute if score #global fl_active matches 7 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 1 run tp @s 355 99 216
+execute if score #global fl_active matches 7 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 2 run tp @s 363 75 200
+execute if score #global fl_active matches 7 unless score #zone_state fl_math matches 1 if score #spawn_rand fl_math matches 3 run tp @s 340 99 210

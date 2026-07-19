@@ -2,6 +2,11 @@
 # ZOV — СБРОС (Очистка игрового состояния)
 # ================================================
 
+# Отмена всех запланированных задач (предотвращает спавн после сброса во время интро)
+schedule clear zov:start/phase_2
+schedule clear zov:start/phase_3
+schedule clear zov:reset
+
 scoreboard players set #global fl_state 0
 scoreboard players set #global fl_active 1
 scoreboard players set #global fl_progress 0
@@ -42,7 +47,7 @@ bossbar set zov:progress color white
 bossbar set zov:progress name {"text":"Ожидание старта..."}
 bossbar set zov:progress visible false
 
-tp @a 50 48 -457 0 0
+tp @a 47.42 48.00 -455.58 91 2
 
 title @a times 10 40 10
 title @a title [{"text":"Раунд окончен","color":"gray"}]

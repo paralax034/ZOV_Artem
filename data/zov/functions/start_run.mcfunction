@@ -2,6 +2,11 @@
 # ZOV — ТЕЛО START (вызывается только если canstart=1)
 # ================================================
 
+# Очистка старых запланированных задач перед новым запуском
+schedule clear zov:reset
+schedule clear zov:start/phase_2
+schedule clear zov:start/phase_3
+
 function zov:cleanup
 
 gamerule keepInventory true
