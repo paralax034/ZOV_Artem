@@ -1,8 +1,24 @@
 # ================================================
 # ZOV — ТЕЛО СПАВНА ЛОДКИ
+#
+# Ключевое исправление: временный тег fl_boat_spawning.
+#
+# Старая проблема: spreadplayers использовал sort=nearest
+# от позиции исполнения (0 0 0 у функции без at-контекста).
+# Это означало что выбиралась лодка ближайшая к 0 0 0,
+# а не новая — новая оставалась на 32 63 -801, старые
+# лодки (в том числе с пассажиром) двигались. Со временем
+# лодки накапливались на базе.
+#
+# Новая логика: даём новой лодке уникальный временный тег
+# → spreadplayers по нему → убираем тег.
+# Selector с уникальным тегом + limit=1 гарантирует что
+# двигается именно новая лодка, независимо от позиции
+# исполнения и количества других лодок.
 # ================================================
 
-summon minecraft:boat 32 63 -801 {Type:"oak",Tags:["fl_boat"]}
-spreadplayers 32 -801 2 10 false @e[type=minecraft:boat,tag=fl_boat,limit=1,sort=nearest]
+summon minecraft:boat 32 63 -801 {Type:"oak",Tags:["fl_boat","fl_boat_spawning"]}
+spreadplayers 32 -801 2 10 false @e[type=minecraft:boat,tag=fl_boat_spawning,limit=1]
+tag @e[type=minecraft:boat,tag=fl_boat_spawning] remove fl_boat_spawning
 
 tellraw @a[team=red] [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Лодка доставлена на базу!","color":"green"}]

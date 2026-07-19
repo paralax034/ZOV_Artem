@@ -49,6 +49,10 @@ scoreboard players set #timer_20 fl_math 0
 scoreboard players set #boat_timer fl_math 0
 scoreboard players set #boat_count fl_math 0
 
+# Флаг: нужно ли после kill занятой лодки заспавнить замену.
+# Используется в tp_boat_trigger_run вместо /return (1.20.1).
+scoreboard players set #boat_need_respawn fl_math 0
+
 # Снимок хода распределения команд
 scoreboard players set #assign_turn fl_assign 0
 scoreboard players set #assign_prev fl_assign 0
