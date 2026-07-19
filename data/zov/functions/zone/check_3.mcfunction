@@ -1,4 +1,9 @@
+# ================================================
 # ЗОНА A3 (-192 63 -169 -> -181 66 -160)
+# Порог захвата: 300 или мгновенно при instant_capture=1
+#
+# Логика захвата: red > blue → захват; red = blue ≥1 → оспаривается
+# ================================================
 
 execute store result score #red_here fl_math if entity @a[team=red,tag=!fl_waiting,x=-192,y=63,z=-169,dx=11,dy=3,dz=9]
 execute store result score #blue_here fl_math if entity @a[team=blue,tag=!fl_waiting,x=-192,y=63,z=-169,dx=11,dy=3,dz=9]

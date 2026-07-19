@@ -1,14 +1,10 @@
 # ================================================
-# ZOV — КОНЕЦ ПОДГОТОВКИ: снятие барьеров, начало боя
-# Вызывается из prep_tick когда #prep_timer достигает 0
+# ZOV — КОНЕЦ ПОДГОТОВКИ
 # ================================================
 
 scoreboard players set #global fl_state 1
-
-# Снимаем неуязвимость подготовки
 effect clear @a minecraft:resistance
 
-# Боссбар игрового времени
 bossbar set zov:progress color red
 bossbar set zov:progress max 24000
 bossbar set zov:progress value 24000
