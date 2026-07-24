@@ -1,23 +1,20 @@
-# ================================================
-# ЗОНА A1 (27 68 -409 -> 48 76 -404)
-# Порог захвата: 200 (40 сек) или 1 (мгновенно при #instant_capture=1)
-#
-# Логика захвата изменена:
-#   Было: red≥1 И blue=0 → захват; red≥1 И blue≥1 → оспаривается
-#   Стало: red > blue    → захват (даже если синие есть, но меньше)
-#          red = blue ≥1 → оспаривается
-#          red ≤ blue    → стоп
-# ================================================
+# 
+# ЗОНА A1 (ДВА ВАРИАНТА ЗДАНИЙ)
+# 
 
-execute store result score #red_here fl_math if entity @a[team=red,tag=!fl_waiting,x=27,y=68,z=-409,dx=21,dy=8,dz=5]
-execute store result score #blue_here fl_math if entity @a[team=blue,tag=!fl_waiting,x=27,y=68,z=-409,dx=21,dy=8,dz=5]
+# Вариант 0: Здание 1 (27 53 -409 -> 48 91 -404)
+execute if score #a1_variant fl_math matches 0 store result score #red_here fl_math if entity @a[team=red,tag=!fl_waiting,x=27,y=53,z=-409,dx=21,dy=38,dz=5]
+execute if score #a1_variant fl_math matches 0 store result score #blue_here fl_math if entity @a[team=blue,tag=!fl_waiting,x=27,y=53,z=-409,dx=21,dy=38,dz=5]
 
-# Сброс состояния
+# Вариант 1: Здание 2 (-61 70 -424 -> -53 77 -404)
+execute if score #a1_variant fl_math matches 1 store result score #red_here fl_math if entity @a[team=red,tag=!fl_waiting,x=-61,y=70,z=-424,dx=8,dy=7,dz=20]
+execute if score #a1_variant fl_math matches 1 store result score #blue_here fl_math if entity @a[team=blue,tag=!fl_waiting,x=-61,y=70,z=-424,dx=8,dy=7,dz=20]
+
 scoreboard players set #zone_state fl_math 0
-# Оспаривается: оба присутствуют в равном числе
 execute if score #red_here fl_math matches 1.. if score #blue_here fl_math matches 1.. if score #red_here fl_math = #blue_here fl_math run scoreboard players set #zone_state fl_math 2
-# Захват: красных больше чем синих
 execute if score #red_here fl_math > #blue_here fl_math run scoreboard players set #zone_state fl_math 1
+
+execute if score #capture_cooldown fl_math matches 1.. run scoreboard players set #zone_state fl_math 0
 
 execute if score #zone_state fl_math matches 1 run scoreboard players add #global fl_progress 1
 execute if score #zone_state fl_math matches 0 if score #global fl_progress matches 1.. run scoreboard players remove #global fl_progress 1

@@ -1,6 +1,6 @@
-# ================================================
+# 
 # ZOV — ТЕЛО START (вызывается только если canstart=1)
-# ================================================
+# 
 
 # Очистка старых запланированных задач перед новым запуском
 schedule clear zov:reset
@@ -36,6 +36,10 @@ tag @a remove fl_waiting
 tag @a remove fl_navigator
 
 execute store result score #spawn_index fl_math run time query gametime
+
+# Выбор случайного здания для первой точки A1 (0 или 1)
+execute store result score #a1_variant fl_math run time query gametime
+scoreboard players operation #a1_variant fl_math %= #2 fl_math
 
 weather clear
 time set 0

@@ -1,6 +1,6 @@
-# ================================================
+# 
 # ZOV — ТЕЛО СТАТУСА ЛОДОК
-# ================================================
+# 
 
 tag @e[type=minecraft:boat,tag=fl_boat] remove fl_occupied
 tag @e[type=minecraft:boat,tag=fl_boat] remove fl_b1

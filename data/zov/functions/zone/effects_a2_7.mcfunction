@@ -1,7 +1,7 @@
-# ================================================
+# 
 # ZOV — ШКАЛА ЗАХВАТА A2..A7 (макс 300, 10 сегментов по 30)
 # Вызывается только из effects при fl_active=2..7 и zone_state=1
-# ================================================
+# 
 
 execute if score #global fl_progress matches 1..30 run title @a[tag=!fl_waiting] actionbar [{"text":"|","color":"red","bold":true},{"text":"|||||||||","color":"dark_gray","bold":true}]
 execute if score #global fl_progress matches 31..60 run title @a[tag=!fl_waiting] actionbar [{"text":"||","color":"red","bold":true},{"text":"||||||||","color":"dark_gray","bold":true}]

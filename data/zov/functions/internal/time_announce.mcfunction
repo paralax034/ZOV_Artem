@@ -1,13 +1,13 @@
-# ================================================
+# 
 # ZOV — ОПОВЕЩЕНИЯ О ВРЕМЕНИ + ОБРАТНЫЙ ОТСЧЁТ
 # Вызывается из tick_logic каждые 4 тика
 #
 # fl_round кратен 4 — все проверки попадают точно
 # При бонусе +5 мин таймер может повторно пройти отметку —
 # это нормально, игрокам полезно знать обновлённое время
-# ================================================
+# 
 
-# === МИНУТНЫЕ ОТМЕТКИ В ЧАТ ===
+#  МИНУТНЫЕ ОТМЕТКИ В ЧАТ 
 
 # 20 минут = 24000 тиков (старт или после бонуса до капа)
 execute if score #global fl_round matches 24000 run tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"До конца раунда: ","color":"white"},{"text":"20 минут","color":"green","bold":true}]
@@ -35,7 +35,7 @@ execute if score #global fl_round matches 1200 run tellraw @a [{"text":"[ZOV] ",
 # 30 секунд = 600 тиков
 execute if score #global fl_round matches 600 run tellraw @a [{"text":"[ZOV] ","color":"gold","bold":true},{"text":"⚠ Осталось ","color":"red"},{"text":"30 секунд!","color":"dark_red","bold":true}]
 
-# === 10-СЕКУНДНЫЙ ОБРАТНЫЙ ОТСЧЁТ ===
+#  10-СЕКУНДНЫЙ ОБРАТНЫЙ ОТСЧЁТ 
 
 # Настройка title: мгновенно, 25 тиков показ, 5 затухание
 execute if score #global fl_round matches 200 run title @a times 0 25 5

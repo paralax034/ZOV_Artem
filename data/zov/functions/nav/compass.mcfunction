@@ -1,18 +1,16 @@
-# ================================================
+# 
 # ZOV — КОМПАС: дистанция до активной точки
-# Вызывается из tick_logic раз в 20 тиков
-# ТОЛЬКО при zone_state=0 и наличии тега fl_holds_compass
-#
-# Три диапазона: далеко (200+), средне (50..199), рядом (..49)
-# Направление показывает лодестоун-стрелка компаса — дублировать не нужно
-# at @s обязателен: positioned считает дистанцию от точки до игрока,
-# для этого нужно знать где игрок (позиция выполнения = позиция игрока)
-# ================================================
+# 
 
-# --- ЗОНА A1 ---
-execute if score #global fl_active matches 1 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned 37 72 -406 if entity @s[distance=200..] run title @s actionbar [{"text":"A1: далеко","color":"red","bold":true}]
-execute if score #global fl_active matches 1 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned 37 72 -406 if entity @s[distance=50..199] run title @s actionbar [{"text":"A1: ~200 блоков","color":"yellow","bold":true}]
-execute if score #global fl_active matches 1 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned 37 72 -406 if entity @s[distance=..49] run title @s actionbar [{"text":"A1: РЯДОМ!","color":"green","bold":true}]
+# --- ЗОНА A1 (Вариант 0: Здание 1) ---
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned 37 72 -406 if entity @s[distance=200..] run title @s actionbar [{"text":"A1: далеко","color":"red","bold":true}]
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned 37 72 -406 if entity @s[distance=50..199] run title @s actionbar [{"text":"A1: ~200 блоков","color":"yellow","bold":true}]
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned 37 72 -406 if entity @s[distance=..49] run title @s actionbar [{"text":"A1: РЯДОМ!","color":"green","bold":true}]
+
+# --- ЗОНА A1 (Вариант 1: Здание 2) ---
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned -57 71 -414 if entity @s[distance=200..] run title @s actionbar [{"text":"A1: далеко","color":"red","bold":true}]
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned -57 71 -414 if entity @s[distance=50..199] run title @s actionbar [{"text":"A1: ~200 блоков","color":"yellow","bold":true}]
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned -57 71 -414 if entity @s[distance=..49] run title @s actionbar [{"text":"A1: РЯДОМ!","color":"green","bold":true}]
 
 # --- ЗОНА A2 ---
 execute if score #global fl_active matches 2 as @a[team=red,tag=!fl_waiting,tag=fl_holds_compass] at @s positioned -5 81 -280 if entity @s[distance=200..] run title @s actionbar [{"text":"A2: далеко","color":"red","bold":true}]

@@ -1,6 +1,6 @@
-# ================================================
+# 
 # ZOV — SETUP (Инициализация и запуск датапака)
-# ================================================
+# 
 
 # Очистка старых критериев
 scoreboard objectives remove fl_state
@@ -50,7 +50,6 @@ scoreboard players set #boat_timer fl_math 0
 scoreboard players set #boat_count fl_math 0
 
 # Флаг: нужно ли после kill занятой лодки заспавнить замену.
-# Используется в tp_boat_trigger_run вместо /return (1.20.1).
 scoreboard players set #boat_need_respawn fl_math 0
 
 # Снимок хода распределения команд
@@ -58,6 +57,7 @@ scoreboard players set #assign_turn fl_assign 0
 scoreboard players set #assign_prev fl_assign 0
 
 # Глобальные константы
+scoreboard players set #2 fl_math 2
 scoreboard players set #4 fl_math 4
 scoreboard players set #20 fl_math 20
 scoreboard players set #200 fl_math 200
@@ -68,6 +68,9 @@ scoreboard players set #skip_intro fl_math 0
 scoreboard players set #skip_prep fl_math 0
 scoreboard players set #instant_capture fl_math 0
 
+# Вариант спавна первой точки A1 (0 = Здание 1, 1 = Здание 2)
+scoreboard players set #a1_variant fl_math 0
+
 # Счётчик уникальных спавнов для предотвращения телефрагов
 scoreboard players set #spawn_index fl_math 0
 
@@ -75,6 +78,13 @@ scoreboard players set #spawn_index fl_math 0
 scoreboard players set #prep_timer fl_math 0
 scoreboard players set #prep_hud_timer fl_math 0
 scoreboard players set #prep_sec fl_math 0
+
+# Таймер блокировки следующей точки после захвата
+scoreboard players set #capture_cooldown fl_math 0
+
+# Переменные для динамических артударов поддержки
+scoreboard players set #zone_stall fl_math 0
+scoreboard players set #strike_fired fl_math 0
 
 gamerule showDeathMessages false
 

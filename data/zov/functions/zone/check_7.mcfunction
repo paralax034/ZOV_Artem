@@ -1,16 +1,15 @@
-# ================================================
-# ЗОНА A7 (310 99 208 -> 315 101 214)
-# Порог захвата: 300 или мгновенно при instant_capture=1
-#
-# Логика захвата: red > blue → захват; red = blue ≥1 → оспаривается
-# ================================================
+# 
+# ЗОНА A7 (310 84 208 -> 315 116 214) | Y expanded +-15
+# 
 
-execute store result score #red_here fl_math if entity @a[team=red,tag=!fl_waiting,x=310,y=99,z=208,dx=5,dy=2,dz=6]
-execute store result score #blue_here fl_math if entity @a[team=blue,tag=!fl_waiting,x=310,y=99,z=208,dx=5,dy=2,dz=6]
+execute store result score #red_here fl_math if entity @a[team=red,tag=!fl_waiting,x=310,y=84,z=208,dx=5,dy=32,dz=6]
+execute store result score #blue_here fl_math if entity @a[team=blue,tag=!fl_waiting,x=310,y=84,z=208,dx=5,dy=32,dz=6]
 
 scoreboard players set #zone_state fl_math 0
 execute if score #red_here fl_math matches 1.. if score #blue_here fl_math matches 1.. if score #red_here fl_math = #blue_here fl_math run scoreboard players set #zone_state fl_math 2
 execute if score #red_here fl_math > #blue_here fl_math run scoreboard players set #zone_state fl_math 1
+
+execute if score #capture_cooldown fl_math matches 1.. run scoreboard players set #zone_state fl_math 0
 
 execute if score #zone_state fl_math matches 1 run scoreboard players add #global fl_progress 1
 execute if score #zone_state fl_math matches 0 if score #global fl_progress matches 1.. run scoreboard players remove #global fl_progress 1

@@ -1,15 +1,18 @@
-# ================================================
+# 
 # ZOV — ЗАХВАТ ТОЧКИ
-# Звук достижения убран, молния оставлена
-# ================================================
+# 
 
 scoreboard players set #global fl_progress 300
 scoreboard players add #global fl_captured 1
 
 # --- МОЛНИЯ + ЧАСТИЦЫ по зонам ---
-execute if score #global fl_active matches 1 run playsound minecraft:entity.lightning_bolt.thunder master @a 37 72 -406 0.5 0.8
-execute if score #global fl_active matches 1 run particle minecraft:explosion_emitter 37 72 -406 0 0 0 0 1 force @a
-execute if score #global fl_active matches 1 run particle minecraft:large_smoke 37 72 -406 5 5 5 0.02 80 force @a
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 run playsound minecraft:entity.lightning_bolt.thunder master @a 37 72 -406 0.5 0.8
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 run particle minecraft:explosion_emitter 37 72 -406 0 0 0 0 1 force @a
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 run particle minecraft:large_smoke 37 72 -406 5 5 5 0.02 80 force @a
+
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 run playsound minecraft:entity.lightning_bolt.thunder master @a -57 71 -414 0.5 0.8
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 run particle minecraft:explosion_emitter -57 71 -414 0 0 0 0 1 force @a
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 run particle minecraft:large_smoke -57 71 -414 5 5 5 0.02 80 force @a
 
 execute if score #global fl_active matches 2 run playsound minecraft:entity.lightning_bolt.thunder master @a -5 81 -280 0.5 0.8
 execute if score #global fl_active matches 2 run particle minecraft:explosion_emitter -5 81 -280 0 0 0 0 1 force @a
@@ -18,6 +21,9 @@ execute if score #global fl_active matches 2 run particle minecraft:large_smoke 
 execute if score #global fl_active matches 3 run playsound minecraft:entity.lightning_bolt.thunder master @a -186 64 -164 0.5 0.8
 execute if score #global fl_active matches 3 run particle minecraft:explosion_emitter -186 64 -164 0 0 0 0 1 force @a
 execute if score #global fl_active matches 3 run particle minecraft:large_smoke -186 64 -164 5 5 5 0.02 80 force @a
+# Спавн пикапа Sodayo (sodayo_pick_up) на точке A3 (1 слот: батарея, 2 слот: 2 аптечки, 3 слот: 16 хлеба)
+execute if score #global fl_active matches 3 run summon superbwarfare:sodayo_pick_up -186 63 -187 {Inventory:{Size:27,Items:[{Slot:0b,id:"superbwarfare:large_battery_pack",Count:1b,tag:{Energy:20000000}},{Slot:1b,id:"superbwarfare:medical_kit",Count:2b},{Slot:2b,id:"minecraft:bread",Count:16b}]}}
+execute if score #global fl_active matches 3 run tellraw @a[team=red] [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Пикап с припасами доставлен на точку A3!","color":"green"}]
 
 execute if score #global fl_active matches 4 run playsound minecraft:entity.lightning_bolt.thunder master @a -404 65 -286 0.5 0.8
 execute if score #global fl_active matches 4 run particle minecraft:explosion_emitter -404 65 -286 0 0 0 0 1 force @a

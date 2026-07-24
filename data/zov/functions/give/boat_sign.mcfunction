@@ -1,4 +1,4 @@
-# ================================================
+# 
 # ZOV — ВЫДАЧА ТАБЛИЧКИ «СТАТУС ЛОДОК»
 # /function zov:give/boat_sign
 #
@@ -11,7 +11,7 @@
 #   scoreboard objectives add fl_boat_status trigger
 #   позволяет игрокам самостоятельно активировать
 #   триггер через /trigger без прав оператора.
-# ================================================
+# 
 
 give @s minecraft:oak_sign{BlockEntityTag:{front_text:{messages:['{"text":"⚓ ПОРТ КРАСНЫХ","color":"red","bold":true}','{"text":"[СТАТУС ЛОДОК]","color":"aqua","bold":true,"underlined":true,"clickEvent":{"action":"run_command","value":"/trigger fl_boat_status"}}','{"text":"ПКМ — проверить лодки","color":"gray"}','{"text":"и вернуть на базу","color":"gray"}'],has_glowing_text:0b,color:"white"}}} 1
 

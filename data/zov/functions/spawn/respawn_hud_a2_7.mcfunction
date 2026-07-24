@@ -1,8 +1,8 @@
-# ================================================
+# 
 # ZOV — HUD МЁРТВОГО: шкала A2..A7 (макс 300, 10 сегментов по 30)
 # runs as @s = fl_waiting игрок
 # Вызывается из respawn_hud только при fl_active=2..7 и zone_state=1
-# ================================================
+# 
 
 execute if score #global fl_progress matches 1..30 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"|","color":"red","bold":true},{"text":"|||||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]
 execute if score #global fl_progress matches 31..60 if score #respawn_sec fl_math matches 1.. run title @s actionbar [{"text":"||","color":"red","bold":true},{"text":"||||||||  ","color":"dark_gray","bold":true},{"text":"Респаун ","color":"white"},{"score":{"name":"#respawn_sec","objective":"fl_math"},"color":"yellow","bold":true},{"text":"с","color":"white"}]

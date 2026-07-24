@@ -1,36 +1,24 @@
-# ================================================
+# 
 # ZOV — НАВИГАЦИЯ: LODESTONE + КОМПАС
-# Красный fl_navigator — один игрок, имя "→ AN | Захватить"
-# Синие — все, имя "→ AN | Защищать"
-# Вызывается из start и zone/next
-#
-# ИСПРАВЛЕНИЕ КОМПАСА:
-#   Было:    LodestoneTracked:1b
-#   Стало:   LodestoneTracked:0b
-#
-#   При LodestoneTracked:1b компас каждый тик проверяет
-#   существует ли блок лодестоуна по сохранённым координатам.
-#   При смене зоны старый лодестоун заменяется на stone —
-#   все компасы мгновенно видят "блок исчез" и начинают
-#   крутиться хаотично, хотя текст в actionbar ещё пишется.
-#
-#   При LodestoneTracked:0b компас просто всегда указывает
-#   на сохранённые координаты, не проверяя блок вообще.
-#   Лодестоуны в мире при этом можно вообще не ставить —
-#   они нужны были только для инициализации направления.
-#   Блоки лодестоунов оставлены для совместимости с логикой
-#   reset.mcfunction (он их заменяет на stone при сбросе).
-# ================================================
+# 
 
-# --- A1 ---
-execute if score #global fl_active matches 1 run setblock 37 62 -406 minecraft:lodestone
-execute if score #global fl_active matches 1 run clear @a[tag=fl_navigator] minecraft:compass
-execute if score #global fl_active matches 1 run give @a[tag=fl_navigator] minecraft:compass{LodestoneDimension:"minecraft:overworld",LodestonePos:{X:37,Y:62,Z:-406},LodestoneTracked:0b,display:{Name:'{"text":"→ A1 | Захватить","color":"red","bold":true,"italic":false}'}}
-execute if score #global fl_active matches 1 run clear @a[team=blue] minecraft:compass
-execute if score #global fl_active matches 1 run give @a[team=blue] minecraft:compass{LodestoneDimension:"minecraft:overworld",LodestonePos:{X:37,Y:62,Z:-406},LodestoneTracked:0b,display:{Name:'{"text":"→ A1 | Защищать","color":"aqua","bold":true,"italic":false}'}}
+# --- A1: Вариант 0 (Здание 1) ---
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 run setblock 37 62 -406 minecraft:lodestone
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 run clear @a[tag=fl_navigator] minecraft:compass
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 run give @a[tag=fl_navigator] minecraft:compass{LodestoneDimension:"minecraft:overworld",LodestonePos:{X:37,Y:62,Z:-406},LodestoneTracked:0b,display:{Name:'{"text":"→ A1 | Захватить","color":"red","bold":true,"italic":false}'}}
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 run clear @a[team=blue] minecraft:compass
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 0 run give @a[team=blue] minecraft:compass{LodestoneDimension:"minecraft:overworld",LodestonePos:{X:37,Y:62,Z:-406},LodestoneTracked:0b,display:{Name:'{"text":"→ A1 | Защищать","color":"aqua","bold":true,"italic":false}'}}
+
+# --- A1: Вариант 1 (Здание 2) ---
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 run setblock -57 62 -414 minecraft:lodestone
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 run clear @a[tag=fl_navigator] minecraft:compass
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 run give @a[tag=fl_navigator] minecraft:compass{LodestoneDimension:"minecraft:overworld",LodestonePos:{X:-57,Y:62,Z:-414},LodestoneTracked:0b,display:{Name:'{"text":"→ A1 | Захватить","color":"red","bold":true,"italic":false}'}}
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 run clear @a[team=blue] minecraft:compass
+execute if score #global fl_active matches 1 if score #a1_variant fl_math matches 1 run give @a[team=blue] minecraft:compass{LodestoneDimension:"minecraft:overworld",LodestonePos:{X:-57,Y:62,Z:-414},LodestoneTracked:0b,display:{Name:'{"text":"→ A1 | Защищать","color":"aqua","bold":true,"italic":false}'}}
 
 # --- A2 ---
 execute if score #global fl_active matches 2 run setblock 37 62 -406 minecraft:stone
+execute if score #global fl_active matches 2 run setblock -61 62 -404 minecraft:stone
 execute if score #global fl_active matches 2 run setblock -5 71 -280 minecraft:lodestone
 execute if score #global fl_active matches 2 run clear @a[tag=fl_navigator] minecraft:compass
 execute if score #global fl_active matches 2 run give @a[tag=fl_navigator] minecraft:compass{LodestoneDimension:"minecraft:overworld",LodestonePos:{X:-5,Y:71,Z:-280},LodestoneTracked:0b,display:{Name:'{"text":"→ A2 | Захватить","color":"red","bold":true,"italic":false}'}}

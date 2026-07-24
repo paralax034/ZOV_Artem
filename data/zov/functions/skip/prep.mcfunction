@@ -1,7 +1,7 @@
-# ================================================
+# 
 # ZOV — ПРОПУСК ПОДГОТОВКИ: диспетчер (без /return)
 # /function zov:skip/prep
-# ================================================
+# 
 
 execute unless score #global fl_state matches 2 run tellraw @s [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Подготовка не идёт.","color":"red"}]
 

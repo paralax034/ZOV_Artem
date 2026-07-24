@@ -1,9 +1,9 @@
-# ================================================
+# 
 # ZOV — НАВИГАЦИЯ СИНИХ: диспетчер
 # Вызывается из tick_logic каждые 4 тика
 # Только 1 условие срабатывает — вызывает нужный файл зоны
 # 20 команд из оригинала полностью исключены из тика
-# ================================================
+# 
 
 execute if score #global fl_active matches 1 run function zov:nav/blue_nav_1
 execute if score #global fl_active matches 2 run function zov:nav/blue_nav_2

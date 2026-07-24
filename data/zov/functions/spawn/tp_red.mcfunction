@@ -1,11 +1,8 @@
-# ================================================
+# 
 # ZOV — СЛУЧАЙНЫЙ СПАВН КРАСНЫХ (runs as @s)
-# П-3: gametime % 4 заменён на #spawn_index % 4
-# Каждый вызов do_respawn инкрементирует #spawn_index →
-# одновременные респауны получают разные точки спавна
-# ================================================
+# Учитывает вариант точки A1 (#a1_variant)
+# 
 
-# Вычисляем индекс для ЭТОГО игрока
 scoreboard players operation #spawn_rand fl_math = #spawn_index fl_math
 scoreboard players operation #spawn_rand fl_math %= #4 fl_math
 
@@ -15,11 +12,17 @@ execute if score #global fl_captured matches 0 if score #spawn_rand fl_math matc
 execute if score #global fl_captured matches 0 if score #spawn_rand fl_math matches 2 run tp @s -17 63 -789
 execute if score #global fl_captured matches 0 if score #spawn_rand fl_math matches 3 run tp @s -36 69 -840
 
-# --- Захвачена A1 ---
-execute if score #global fl_captured matches 1 if score #spawn_rand fl_math matches 0 run tp @s 43 70 -409
-execute if score #global fl_captured matches 1 if score #spawn_rand fl_math matches 1 run tp @s 27 70 -409
-execute if score #global fl_captured matches 1 if score #spawn_rand fl_math matches 2 run tp @s 45 74 -409
-execute if score #global fl_captured matches 1 if score #spawn_rand fl_math matches 3 run tp @s 33 74 -409
+# --- Захвачена A1 (Вариант 0: Здание 1) ---
+execute if score #global fl_captured matches 1 if score #a1_variant fl_math matches 0 if score #spawn_rand fl_math matches 0 run tp @s 43 70 -409
+execute if score #global fl_captured matches 1 if score #a1_variant fl_math matches 0 if score #spawn_rand fl_math matches 1 run tp @s 27 70 -409
+execute if score #global fl_captured matches 1 if score #a1_variant fl_math matches 0 if score #spawn_rand fl_math matches 2 run tp @s 45 74 -409
+execute if score #global fl_captured matches 1 if score #a1_variant fl_math matches 0 if score #spawn_rand fl_math matches 3 run tp @s 33 74 -409
+
+# --- Захвачена A1 (Вариант 1: Здание 2) ---
+execute if score #global fl_captured matches 1 if score #a1_variant fl_math matches 1 if score #spawn_rand fl_math matches 0 run tp @s -61 70 -404
+execute if score #global fl_captured matches 1 if score #a1_variant fl_math matches 1 if score #spawn_rand fl_math matches 1 run tp @s -57 71 -414
+execute if score #global fl_captured matches 1 if score #a1_variant fl_math matches 1 if score #spawn_rand fl_math matches 2 run tp @s -53 77 -404
+execute if score #global fl_captured matches 1 if score #a1_variant fl_math matches 1 if score #spawn_rand fl_math matches 3 run tp @s -56 74 -411
 
 # --- Захвачена A2 ---
 execute if score #global fl_captured matches 2 if score #spawn_rand fl_math matches 0 run tp @s -9 72 -288
@@ -39,7 +42,7 @@ execute if score #global fl_captured matches 4 if score #spawn_rand fl_math matc
 execute if score #global fl_captured matches 4 if score #spawn_rand fl_math matches 2 run tp @s -388 74 -267
 execute if score #global fl_captured matches 4 if score #spawn_rand fl_math matches 3 run tp @s -383 64 -269
 
-# --- Захвачена A5 (П-4: все 4 точки разные) ---
+# --- Захвачена A5 ---
 execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 0 run tp @s -439 64 42
 execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 1 run tp @s -376 64 43
 execute if score #global fl_captured matches 5 if score #spawn_rand fl_math matches 2 run tp @s -415 64 55

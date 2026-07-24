@@ -1,8 +1,9 @@
-# ================================================
+# 
 # ZOV — ОЧИСТКА КАРТЫ
-# ================================================
+# 
 
 kill @e[type=superbwarfare:bmp_2]
+kill @e[type=superbwarfare:sodayo_pick_up]
 kill @e[type=superbwarfare:a_10a]
 kill @e[type=superbwarfare:rpg_rocket_tbg]
 kill @e[type=superbwarfare:smoke_decoy]
@@ -13,6 +14,9 @@ kill @e[type=superbwarfare:blu_43]
 kill @e[type=item]
 kill @e[type=corpse:corpse]
 kill @e[type=minecraft:boat,tag=fl_boat]
+
+# Отмена всех активных артударов мода sbw_tweaks
+sbwt strike cancel all
 
 # Очистка инвентарей
 clear @a

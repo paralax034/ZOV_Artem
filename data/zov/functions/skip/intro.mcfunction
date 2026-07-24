@@ -1,7 +1,7 @@
-# ================================================
+# 
 # ZOV — ПРОПУСК ЗАСТАВКИ: диспетчер (без /return)
 # /function zov:skip/intro
-# ================================================
+# 
 
 execute unless score #global fl_state matches 2 run tellraw @s [{"text":"[ZOV] ","color":"red","bold":true},{"text":"Заставка не идёт.","color":"red"}]
 
